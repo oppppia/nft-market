@@ -23,12 +23,12 @@
 </script>
 
 <div class="flex flex-col items-center gap-3">
-	<select class="px-4 py-2">
+	<select class="rounded-md px-4 py-2">
 		{#each accounts as account}
 			<option onclick={() => setAccount(account.address)}>{account.address}</option>
 		{/each}
 	</select>
-	<div class="flex flex-col items-center gap-2 px-4 text-lg font-bold">
+	<div class="flex flex-col items-center gap-2 px-4 text-lg font-bold text-white">
 		<p class="break-words">Current account: {selectedAccount.address}</p>
 		<span>Balance: {web3.utils.fromWei(selectedAccount.balance, 'ether')} ETH</span>
 	</div>
