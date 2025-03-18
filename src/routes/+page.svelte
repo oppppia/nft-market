@@ -1,13 +1,15 @@
 <script lang="ts">
+	import { contract, getAccounts, type TAccountInfo } from '$lib/web3';
 	import ArticleCard from '../components/ArticleCard.svelte';
 	import AccountSelector from '$components/AccountSelector.svelte';
 	import Header from '../components/Header.svelte';
 	import MintNft from '../components/MintNft.svelte';
-	import { contract, getAccounts, type TAccountInfo } from '$lib/web3';
 	import NftList from '$components/NftList.svelte';
+	import MintCollection from '$components/MintCollection.svelte';
+	import CollectionList from '$components/CollectionList.svelte';
 
 	const accounts = getAccounts();
-	const tabs = ['Mint NFT', 'NFTs', 'NFT Collections', 'Auction NFT'];
+	const tabs = ['Mint NFT', 'NFTs', 'Mint NFT collection', 'NFT Collections'];
 	let activeTab = $state(tabs[0]);
 	let selectedAccount: TAccountInfo | undefined = $state(undefined);
 
@@ -15,6 +17,12 @@
 		const nfts = await contract.methods.getNfts().call();
 
 		return nfts;
+	}
+
+	async function getCollections() {
+		const collections = await contract.methods.getCollections().call();
+
+		return collections;
 	}
 </script>
 
@@ -42,9 +50,17 @@
 				<NftList {nfts} account={selectedAccount} />
 			{/await}
 		{/if}
+	{:else if activeTab === 'Mint NFT collection'}
+		<ArticleCard primaryName="MINT" secondaryName="NFT COLLECTION"></ArticleCard>
+		{#if selectedAccount !== undefined}
+			<MintCollection nfts={[]} account={selectedAccount} />
+		{/if}
 	{:else if activeTab === 'NFT Collections'}
-		<ArticleCard primaryName="YOUR" secondaryName="NFT COLLECTIONS"></ArticleCard>
-	{:else if activeTab === 'Auction NFT'}
-		<ArticleCard primaryName="START AUCTION" secondaryName="NFT NOW"></ArticleCard>
+		<ArticleCard primaryName="YOUR" secondaryName="NFTs COLLECTIONS"></ArticleCard>
+		{#await getCollections()}
+			<span>Loading collections...</span>
+		{:then collections}
+			<CollectionList {collections} />
+		{/await}
 	{/if}
 </main>
