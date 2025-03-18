@@ -9,10 +9,10 @@
 	class="fixed right-0 top-0 rounded-md bg-{type} h-auto max-w-lg border-primary transition-colors"
 >
 	<div class="relative">
-		<p class="text-2xl font-black text-white">{title}</p>
+		<p class="text-xl font-semibold text-white">{title}</p>
 	</div>
 	<div class="relative">
-		<span class="text-xl font-black">{message}</span>
+		<span class="text-lg font-thin">{message}</span>
 	</div>
 </div>
 
