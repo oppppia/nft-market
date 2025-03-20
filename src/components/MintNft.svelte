@@ -56,7 +56,12 @@
 		class="border-gray-300 bg-gray-100 hover:bg-gray-200 flex cursor-pointer flex-col items-center justify-center rounded-lg border p-6 transition"
 	>
 		{#if selectedImage}
-			<img src={selectedImage} alt="uploaded-image" class="h-[336px] w-full rounded-lg" />
+			<img
+				src={selectedImage}
+				aria-hidden="true"
+				alt="uploaded-image"
+				class="h-[336px] w-full rounded-lg"
+			/>
 		{:else}
 			<span class="text-gray-500">Upload image</span>
 		{/if}
