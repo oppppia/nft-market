@@ -235,32 +235,6 @@ export default [
 	{
 		inputs: [
 			{
-				internalType: 'uint256',
-				name: 'collectionId',
-				type: 'uint256'
-			}
-		],
-		name: 'finishAuction',
-		outputs: [],
-		stateMutability: 'nonpayable',
-		type: 'function'
-	},
-	{
-		inputs: [
-			{
-				internalType: 'uint256',
-				name: 'collectionId',
-				type: 'uint256'
-			}
-		],
-		name: 'joinAuction',
-		outputs: [],
-		stateMutability: 'payable',
-		type: 'function'
-	},
-	{
-		inputs: [
-			{
 				internalType: 'string',
 				name: 'name',
 				type: 'string'
@@ -268,6 +242,11 @@ export default [
 			{
 				internalType: 'string[]',
 				name: 'nftNames',
+				type: 'string[]'
+			},
+			{
+				internalType: 'string[]',
+				name: 'imageHashes',
 				type: 'string[]'
 			}
 		],
@@ -287,6 +266,11 @@ export default [
 			{
 				internalType: 'string',
 				name: 'name',
+				type: 'string'
+			},
+			{
+				internalType: 'string',
+				name: 'imageHash',
 				type: 'string'
 			}
 		],
@@ -399,29 +383,6 @@ export default [
 			}
 		],
 		name: 'setApprovalForAll',
-		outputs: [],
-		stateMutability: 'nonpayable',
-		type: 'function'
-	},
-	{
-		inputs: [
-			{
-				internalType: 'uint256',
-				name: 'id',
-				type: 'uint256'
-			},
-			{
-				internalType: 'uint256',
-				name: 'startPrice',
-				type: 'uint256'
-			},
-			{
-				internalType: 'uint256',
-				name: 'maxPrice',
-				type: 'uint256'
-			}
-		],
-		name: 'startAuction',
 		outputs: [],
 		stateMutability: 'nonpayable',
 		type: 'function'
@@ -642,6 +603,11 @@ export default [
 						type: 'uint256'
 					},
 					{
+						internalType: 'string',
+						name: 'imageHash',
+						type: 'string'
+					},
+					{
 						components: [
 							{
 								internalType: 'bool',
@@ -720,6 +686,11 @@ export default [
 				internalType: 'uint256',
 				name: 'collectionId',
 				type: 'uint256'
+			},
+			{
+				internalType: 'string',
+				name: 'imageHash',
+				type: 'string'
 			},
 			{
 				components: [
