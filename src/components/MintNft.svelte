@@ -8,22 +8,18 @@
 
 	let nftName = $state('');
 	let file: File | null = $state(null);
+	let selectedImage: string | null = $state(null);
 
 	function onFileChange(event: Event) {
 		const input = event.currentTarget as HTMLInputElement;
-
 		if (input.files && input.files.length > 0) {
 			file = input.files[0];
+			selectedImage = URL.createObjectURL(file);
 		}
 	}
 
 	async function onMint() {
 		try {
-			const txHash = await contract.methods.mintCommonNft(nftName).send({
-				from: account.address,
-				gas: '6721965'
-			});
-
 			if (file) {
 				const formData = new FormData();
 				formData.append('file', file);
@@ -36,10 +32,15 @@
 					body: formData
 				};
 
-				await Api.fetchApi(opts);
-			}
+				const data = await Api.fetchApi(opts);
 
-			notifications.add('success', 'NFT minted', `Tx hash ${txHash.transactionHash}`);
+				const txHash = await contract.methods.mintCommonNft(nftName, data.hash).send({
+					from: account.address,
+					gas: '6721965'
+				});
+
+				notifications.add('success', 'NFT minted', `Tx hash ${txHash.transactionHash}`);
+			}
 		} catch (err) {
 			console.error(err);
 			notifications.add('error', 'NFT minted error', `${err}`);
@@ -49,8 +50,18 @@
 	}
 </script>
 
-<div class="mx-auto flex max-w-md flex-col gap-4">
-	<input type="file" onchange={onFileChange} />
+<div class="mx-auto flex w-96 flex-col gap-4 p-8">
+	<label
+		for="file-upload"
+		class="border-gray-300 bg-gray-100 hover:bg-gray-200 flex cursor-pointer flex-col items-center justify-center rounded-lg border p-6 transition"
+	>
+		{#if selectedImage}
+			<img src={selectedImage} alt="uploaded-image" class="h-[336px] w-full rounded-lg" />
+		{:else}
+			<span class="text-gray-500">Upload image</span>
+		{/if}
+		<input id="file-upload" type="file" class="hidden" onchange={onFileChange} />
+	</label>
 	<input
 		type="text"
 		placeholder="NFT Name"
