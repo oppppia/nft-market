@@ -1,4 +1,4 @@
-export const contractAddress = '0xFA4513f20D6e3Fc669d5464659776FF159428C86';
+export const contractAddress = '0x4CC60283DDF6363E39B6aA54D16a63B12613D42d';
 
 export interface INftSaleData {
 	isOnSale: boolean;
@@ -11,6 +11,7 @@ export interface INft {
 	name: string;
 	isCollectible: boolean;
 	collectionId?: bigint;
+	imageHash: string;
 	saleData: INftSaleData;
 }
 
