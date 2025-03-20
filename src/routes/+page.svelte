@@ -7,9 +7,11 @@
 	import NftList from '$components/NftList.svelte';
 	import MintCollection from '$components/MintCollection.svelte';
 	import CollectionList from '$components/CollectionList.svelte';
+	import { Api } from '$lib/api';
+	import TransactionList from '$components/TransactionList.svelte';
 
 	const accounts = getAccounts();
-	const tabs = ['Mint NFT', 'NFTs', 'Mint NFT collection', 'NFT Collections'];
+	const tabs = ['Mint NFT', 'NFTs', 'Mint NFT collection', 'NFT Collections', 'Transactions'];
 	let activeTab = $state(tabs[0]);
 	let selectedAccount: TAccountInfo | undefined = $state(undefined);
 
@@ -23,6 +25,20 @@
 		const collections = await contract.methods.getCollections().call();
 
 		return collections;
+	}
+
+	async function getTransactions() {
+		const opts = {
+			method: 'POST',
+			route: '/api/transactions/get',
+			body: {
+				address: selectedAccount
+			}
+		};
+
+		const data = await Api.fetchApi(opts);
+
+		return data.transactions;
 	}
 </script>
 
@@ -61,6 +77,13 @@
 			<span>Loading collections...</span>
 		{:then collections}
 			<CollectionList {collections} />
+		{/await}
+	{:else if activeTab === 'Transactions'}
+		<ArticleCard primaryName="YOUR" secondaryName="TRANSACTIONS" />
+		{#await getTransactions()}
+			<span>Loading...</span>
+		{:then transactions}
+			<TransactionList {transactions} />
 		{/await}
 	{/if}
 </main>
