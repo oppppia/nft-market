@@ -46,6 +46,7 @@
 			notifications.add('error', 'NFT minted error', `${err}`);
 		} finally {
 			nftName = '';
+			selectedImage = null;
 		}
 	}
 </script>
