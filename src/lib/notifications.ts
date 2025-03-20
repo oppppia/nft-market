@@ -21,7 +21,7 @@ export const notificationsStore = {
 
 			setTimeout(() => {
 				notificationsStore.remove(id);
-			}, 3000);
+			}, 5000);
 
 			return value;
 		});
