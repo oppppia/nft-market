@@ -1,4 +1,4 @@
-export const contractAddress = '0x4CC60283DDF6363E39B6aA54D16a63B12613D42d';
+export const contractAddress = '0xB0667E427F503B8E89541a5F0791e3c82ee6e79a';
 
 export interface INftSaleData {
 	isOnSale: boolean;
@@ -25,10 +25,4 @@ export interface ICollection {
 export interface IBid {
 	bidder: string;
 	amount: bigint;
-}
-
-export interface IAuction {
-	startPrice: bigint;
-	maxPrice: bigint;
-	bids: IBid[];
 }
