@@ -6,35 +6,28 @@
 	interface INftList {
 		nfts: INft[];
 		account: TAccountInfo;
+		refreshNfts: () => void;
 	}
 
-	const { nfts, account }: INftList = $props();
-
-	let isFilterActive = $state(false);
-	let filteredNfts: INft[] = $state([]);
+	let { nfts: originalNfts, account, refreshNfts }: INftList = $props();
 
 	const tabs = ['My NFTs', 'Users NFTs'];
+	let isFilterActive = $state(false);
 	let activeTab = $state(tabs[0]);
 
-	$effect(() => {
-		if (isFilterActive) {
-			filteredNfts = nfts.filter((nft) => nft.saleData.isOnSale === true);
-		}
-
-		if (activeTab === 'My NFTs') {
-			filteredNfts = nfts.filter((nft) => nft.owner === account.address);
-		} else if (activeTab === 'Users NFTs') {
-			filteredNfts = nfts.filter((nft) => nft.owner !== account.address);
-		}
-	});
+	const filteredNfts = $derived(
+		activeTab === tabs[0]
+			? originalNfts.filter((nft) => nft.owner === account.address)
+			: originalNfts.filter((nft) => nft.owner !== account.address)
+	);
 </script>
 
 <div class="flex flex-col gap-4">
 	<div class="flex items-center justify-center gap-5">
 		<div>
-			<select class="rounded-md px-12 py-2">
+			<select class="rounded-md px-12 py-2" bind:value={activeTab}>
 				{#each tabs as tab}
-					<option onclick={() => (activeTab = tab)}>{tab}</option>
+					<option value={tab}>{tab}</option>
 				{/each}
 			</select>
 		</div>
@@ -48,14 +41,14 @@
 		</div>
 	</div>
 	<div class="mx-auto inline-grid grid-cols-3 gap-24 px-16 py-8">
-		{#if nfts.length > 0}
+		{#if filteredNfts.length > 0}
 			{#each filteredNfts as nft, idx}
-				<NftCard {nft} nftIdx={idx} {account} />
+				<NftCard {nft} nftIdx={idx} {account} {refreshNfts} />
 			{/each}
-		{:else if activeTab === tabs[1]}
-			<span class="mx-auto text-2xl font-bold text-white">Users NFT's not found</span>
 		{:else}
-			<span class="mx-auto text-2xl font-bold text-white">You haven't NFTs</span>
+			<p class="mx-auto text-xl font-bold text-white">
+				{activeTab === tabs[0] ? "You haven't NFTs" : "Other users haven't NFT's"}
+			</p>
 		{/if}
 	</div>
 </div>
