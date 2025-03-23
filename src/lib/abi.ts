@@ -1,10 +1,5 @@
 export default [
 	{
-		inputs: [],
-		stateMutability: 'nonpayable',
-		type: 'constructor'
-	},
-	{
 		inputs: [
 			{
 				internalType: 'address',
@@ -227,6 +222,184 @@ export default [
 	{
 		inputs: [
 			{
+				internalType: 'uint256',
+				name: 'id',
+				type: 'uint256'
+			}
+		],
+		name: 'buyNft',
+		outputs: [],
+		stateMutability: 'payable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'string',
+				name: 'name',
+				type: 'string'
+			},
+			{
+				internalType: 'string[]',
+				name: 'nftNames',
+				type: 'string[]'
+			},
+			{
+				internalType: 'string[]',
+				name: 'imageHashes',
+				type: 'string[]'
+			},
+			{
+				internalType: 'string',
+				name: 'coverHash',
+				type: 'string'
+			}
+		],
+		name: 'mintCollection',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256'
+			}
+		],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'string',
+				name: 'name',
+				type: 'string'
+			},
+			{
+				internalType: 'string',
+				name: 'imageHash',
+				type: 'string'
+			}
+		],
+		name: 'mintCommonNft',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256'
+			}
+		],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: 'id',
+				type: 'uint256'
+			},
+			{
+				internalType: 'uint256',
+				name: 'price',
+				type: 'uint256'
+			}
+		],
+		name: 'placeNftOnSale',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'from',
+				type: 'address'
+			},
+			{
+				internalType: 'address',
+				name: 'to',
+				type: 'address'
+			},
+			{
+				internalType: 'uint256[]',
+				name: 'ids',
+				type: 'uint256[]'
+			},
+			{
+				internalType: 'uint256[]',
+				name: 'values',
+				type: 'uint256[]'
+			},
+			{
+				internalType: 'bytes',
+				name: 'data',
+				type: 'bytes'
+			}
+		],
+		name: 'safeBatchTransferFrom',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'from',
+				type: 'address'
+			},
+			{
+				internalType: 'address',
+				name: 'to',
+				type: 'address'
+			},
+			{
+				internalType: 'uint256',
+				name: 'id',
+				type: 'uint256'
+			},
+			{
+				internalType: 'uint256',
+				name: 'value',
+				type: 'uint256'
+			},
+			{
+				internalType: 'bytes',
+				name: 'data',
+				type: 'bytes'
+			}
+		],
+		name: 'safeTransferFrom',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'operator',
+				type: 'address'
+			},
+			{
+				internalType: 'bool',
+				name: 'approved',
+				type: 'bool'
+			}
+		],
+		name: 'setApprovalForAll',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [],
+		stateMutability: 'nonpayable',
+		type: 'constructor'
+	},
+	{
+		inputs: [
+			{
 				internalType: 'address',
 				name: 'account',
 				type: 'address'
@@ -270,19 +443,6 @@ export default [
 			}
 		],
 		stateMutability: 'view',
-		type: 'function'
-	},
-	{
-		inputs: [
-			{
-				internalType: 'uint256',
-				name: 'id',
-				type: 'uint256'
-			}
-		],
-		name: 'buyNft',
-		outputs: [],
-		stateMutability: 'payable',
 		type: 'function'
 	},
 	{
@@ -333,6 +493,11 @@ export default [
 				internalType: 'string',
 				name: 'coverHash',
 				type: 'string'
+			},
+			{
+				internalType: 'address',
+				name: 'owner',
+				type: 'address'
 			},
 			{
 				internalType: 'bool',
@@ -411,6 +576,11 @@ export default [
 						internalType: 'string',
 						name: 'coverHash',
 						type: 'string'
+					},
+					{
+						internalType: 'address',
+						name: 'owner',
+						type: 'address'
 					},
 					{
 						internalType: 'bool',
@@ -515,64 +685,6 @@ export default [
 	{
 		inputs: [
 			{
-				internalType: 'string',
-				name: 'name',
-				type: 'string'
-			},
-			{
-				internalType: 'string[]',
-				name: 'nftNames',
-				type: 'string[]'
-			},
-			{
-				internalType: 'string[]',
-				name: 'imageHashes',
-				type: 'string[]'
-			},
-			{
-				internalType: 'string',
-				name: 'coverHash',
-				type: 'string'
-			}
-		],
-		name: 'mintCollection',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256'
-			}
-		],
-		stateMutability: 'nonpayable',
-		type: 'function'
-	},
-	{
-		inputs: [
-			{
-				internalType: 'string',
-				name: 'name',
-				type: 'string'
-			},
-			{
-				internalType: 'string',
-				name: 'imageHash',
-				type: 'string'
-			}
-		],
-		name: 'mintCommonNft',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256'
-			}
-		],
-		stateMutability: 'nonpayable',
-		type: 'function'
-	},
-	{
-		inputs: [
-			{
 				internalType: 'uint256',
 				name: '',
 				type: 'uint256'
@@ -637,108 +749,6 @@ export default [
 			}
 		],
 		stateMutability: 'view',
-		type: 'function'
-	},
-	{
-		inputs: [
-			{
-				internalType: 'uint256',
-				name: 'id',
-				type: 'uint256'
-			},
-			{
-				internalType: 'uint256',
-				name: 'price',
-				type: 'uint256'
-			}
-		],
-		name: 'placeNftOnSale',
-		outputs: [],
-		stateMutability: 'nonpayable',
-		type: 'function'
-	},
-	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: 'from',
-				type: 'address'
-			},
-			{
-				internalType: 'address',
-				name: 'to',
-				type: 'address'
-			},
-			{
-				internalType: 'uint256[]',
-				name: 'ids',
-				type: 'uint256[]'
-			},
-			{
-				internalType: 'uint256[]',
-				name: 'values',
-				type: 'uint256[]'
-			},
-			{
-				internalType: 'bytes',
-				name: 'data',
-				type: 'bytes'
-			}
-		],
-		name: 'safeBatchTransferFrom',
-		outputs: [],
-		stateMutability: 'nonpayable',
-		type: 'function'
-	},
-	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: 'from',
-				type: 'address'
-			},
-			{
-				internalType: 'address',
-				name: 'to',
-				type: 'address'
-			},
-			{
-				internalType: 'uint256',
-				name: 'id',
-				type: 'uint256'
-			},
-			{
-				internalType: 'uint256',
-				name: 'value',
-				type: 'uint256'
-			},
-			{
-				internalType: 'bytes',
-				name: 'data',
-				type: 'bytes'
-			}
-		],
-		name: 'safeTransferFrom',
-		outputs: [],
-		stateMutability: 'nonpayable',
-		type: 'function'
-	},
-	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: 'operator',
-				type: 'address'
-			},
-			{
-				internalType: 'bool',
-				name: 'approved',
-				type: 'bool'
-			}
-		],
-		name: 'setApprovalForAll',
-		outputs: [],
-		stateMutability: 'nonpayable',
 		type: 'function'
 	},
 	{
