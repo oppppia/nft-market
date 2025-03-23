@@ -119,10 +119,12 @@
 				{web3.utils.fromWei(nft.saleData.price, 'ether')} ETH
 			{/if}
 		</span>
-		{#if nft.saleData.isOnSale && nft.owner !== account.address}
-			<Button onclick={onOpenNftBuyDialog} class="w-full">Buy NFT</Button>
-		{:else if !nft.saleData.isOnSale && nft.owner === account.address}
-			<Button onclick={onOpenNftPlaceDialog} class="w-full">Place on sale</Button>
+		{#if !nft.isCollectible}
+			{#if nft.saleData.isOnSale && nft.owner !== account.address}
+				<Button onclick={onOpenNftBuyDialog} class="w-full">Buy NFT</Button>
+			{:else if !nft.saleData.isOnSale && nft.owner === account.address}
+				<Button onclick={onOpenNftPlaceDialog} class="w-full">Place on sale</Button>
+			{/if}
 		{/if}
 	</div>
 </div>
