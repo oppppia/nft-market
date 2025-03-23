@@ -4,13 +4,18 @@
 	import notifications from '$lib/notifications';
 	import { Api } from '$lib/api';
 
-	const { account }: { account: TAccountInfo } = $props();
+	interface IMintNft {
+		account: TAccountInfo;
+		refreshNfts: () => void;
+	}
+
+	const { account, refreshNfts }: IMintNft = $props();
 
 	let nftName = $state('');
 	let file: File | null = $state(null);
 	let selectedImage: string | null = $state(null);
 
-	function onFileChange(event: Event) {
+	function onChange(event: Event) {
 		const input = event.currentTarget as HTMLInputElement;
 		if (input.files && input.files.length > 0) {
 			file = input.files[0];
@@ -34,12 +39,16 @@
 
 				const data = await Api.fetchApi(opts);
 
-				const txHash = await contract.methods.mintCommonNft(nftName, data.hash).send({
-					from: account.address,
-					gas: '6721965'
-				});
+				if (data) {
+					const txHash = await contract.methods.mintCommonNft(nftName, data.hash).send({
+						from: account.address,
+						gas: '6721965'
+					});
 
-				notifications.add('success', 'NFT minted', `Tx hash ${txHash.transactionHash}`);
+					notifications.add('success', 'NFT minted', `Tx hash ${txHash.transactionHash}`);
+
+					refreshNfts();
+				}
 			}
 		} catch (err) {
 			console.error(err);
@@ -66,7 +75,7 @@
 		{:else}
 			<span class="text-gray-500">Upload image</span>
 		{/if}
-		<input id="file-upload" type="file" class="hidden" onchange={onFileChange} />
+		<input id="file-upload" type="file" class="hidden" onchange={onChange} />
 	</label>
 	<input
 		type="text"
@@ -74,5 +83,5 @@
 		class="border-gray-300 rounded-lg border p-2"
 		bind:value={nftName}
 	/>
-	<Button disabled={nftName === ''} onclick={onMint}>Mint NFT</Button>
+	<Button disabled={nftName === '' && selectedImage === null} onclick={onMint}>Mint NFT</Button>
 </div>
