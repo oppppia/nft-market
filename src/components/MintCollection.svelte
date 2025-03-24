@@ -109,7 +109,7 @@
 <div class="mx-auto flex w-96 flex-col gap-2 p-8">
 	<label
 		for="file-upload"
-		class="border-gray-300 bg-gray-100 hover:bg-gray-200 flex cursor-pointer flex-col items-center justify-center rounded-lg border p-6 transition"
+		class="bg-gray-100 hover:bg-gray-200 flex cursor-pointer flex-col items-center justify-center rounded-lg border border-primary p-6 text-white transition"
 	>
 		{#if selectedCollectionCover}
 			<img
