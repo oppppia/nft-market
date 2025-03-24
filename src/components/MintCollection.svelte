@@ -8,9 +8,10 @@
 	interface IMintCollection {
 		account: TAccountInfo;
 		refreshCollections: () => void;
+		refreshNfts: () => void;
 	}
 
-	let { account, refreshCollections }: IMintCollection = $props();
+	let { account, refreshCollections, refreshNfts }: IMintCollection = $props();
 
 	let name = $state('');
 	let nftCollectableName = $state('');
@@ -91,6 +92,7 @@
 				);
 
 				refreshCollections();
+				refreshNfts();
 			}
 		} catch (err) {
 			console.error(err);
