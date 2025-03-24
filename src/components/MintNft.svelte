@@ -40,6 +40,8 @@
 				const data = await Api.fetchApi(opts);
 
 				if (data) {
+					await Api.createEvent(account.address, 'Mint common nft');
+
 					const txHash = await contract.methods.mintCommonNft(nftName, data.hash).send({
 						from: account.address,
 						gas: '6721965'

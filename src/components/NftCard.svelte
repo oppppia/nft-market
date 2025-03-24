@@ -5,6 +5,7 @@
 	import { contract, type TAccountInfo } from '$lib/web3';
 	import { web3 } from '$lib/web3';
 	import { X } from '@lucide/svelte';
+	import { Api } from '$lib/api';
 
 	interface INftCard {
 		nft: INft;
@@ -48,6 +49,8 @@
 
 	async function onPlace(id: number) {
 		try {
+			await Api.createEvent(account.address, 'Place on sale nft');
+
 			const txHash = await contract.methods
 				.placeNftOnSale(id, web3.utils.toWei(price, 'ether'))
 				.send({
@@ -72,6 +75,8 @@
 
 	async function onBuy(id: number) {
 		try {
+			await Api.createEvent(account.address, 'Buy nft');
+
 			const txHash = await contract.methods.buyNft(id).send({
 				from: account.address,
 				gas: '6721965',

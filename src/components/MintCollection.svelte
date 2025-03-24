@@ -78,6 +78,8 @@
 			const data = await Api.fetchApi(opts);
 
 			if (data) {
+				await Api.createEvent(account.address, 'Mint collection');
+
 				const tx = await contract.methods
 					.mintCollection(name, nftNames, data.imageHashes, data.coverHash)
 					.send({
