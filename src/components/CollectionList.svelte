@@ -22,7 +22,7 @@
 	);
 </script>
 
-<div class="flex flex-col items-center justify-center">
+<div class="flex flex-col items-center justify-center gap-4 p-8">
 	<div class="flex items-center justify-center gap-5">
 		<select class="rounded-md px-12 py-2" bind:value={activeTab}>
 			{#each tabs as tab}
@@ -30,7 +30,6 @@
 			{/each}
 		</select>
 	</div>
-
 	{#if filteredCollections.length > 0}
 		<div class="inline-grid grid-cols-3 gap-4">
 			{#each filteredCollections as collection}
