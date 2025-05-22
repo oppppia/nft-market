@@ -12,7 +12,6 @@
 	let { nfts: originalNfts, account, refreshNfts }: INftList = $props();
 
 	const tabs = ['My NFTs', 'Users NFTs'];
-	let isFilterActive = $state(false);
 	let activeTab = $state(tabs[0]);
 
 	const filteredNfts = $derived(
@@ -31,14 +30,6 @@
 				{/each}
 			</select>
 		</div>
-		<div class="flex justify-center gap-3 text-xl font-bold text-white">
-			<input
-				class="sales-filter"
-				type="checkbox"
-				onclick={() => (isFilterActive = !isFilterActive)}
-			/>
-			<span>Sales NFTs</span>
-		</div>
 	</div>
 	<div class="mx-auto inline-grid grid-cols-3 gap-24 px-16 py-8">
 		{#if filteredNfts.length > 0}
@@ -52,11 +43,3 @@
 		{/if}
 	</div>
 </div>
-
-<style>
-	.sales-filter {
-		accent-color: #2bd7b1;
-		width: 24px;
-		height: 24px;
-	}
-</style>
