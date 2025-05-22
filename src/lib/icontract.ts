@@ -1,4 +1,6 @@
-export const contractAddress = '0xE22fC8681e5119ab33DC6eFD6fE3424A7B1DEe3A';
+import { CONTRACT_ADDRESS } from '$env/static/private';
+
+export const contractAddress = CONTRACT_ADDRESS;
 
 export interface INftSaleData {
 	isOnSale: boolean;
