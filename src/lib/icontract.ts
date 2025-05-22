@@ -1,6 +1,6 @@
-import { CONTRACT_ADDRESS } from '$env/static/private';
+import { PUBLIC_CONTRACT_ADDRESS } from '$env/static/public';
 
-export const contractAddress = CONTRACT_ADDRESS;
+export const contractAddress = PUBLIC_CONTRACT_ADDRESS;
 
 export interface INftSaleData {
 	isOnSale: boolean;
