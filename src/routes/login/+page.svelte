@@ -22,6 +22,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>VOID - Login page</title>
+</svelte:head>
+
 <div class="flex min-h-screen justify-center bg-main">
 	<div class="flex flex-col justify-center">
 		<div class="bg-background-secondary flex flex-col gap-2 rounded px-32 py-20">
