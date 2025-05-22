@@ -8,12 +8,15 @@ export default {
 		backgroundColor: {
 			main: '#192531',
 			primary: '#2BD7B1',
-			secondary: '#41576D'
+			secondary: '#41576D',
+			secondPrimary: '#089c7b'
 		},
 		borderColor: {
 			primary: '#2BD7B1'
 		},
 		textColor: {
+			collectableTrue: '#2BD7B1',
+			collectableFalse: '#eb3b3b',
 			white: '#FFF',
 			secondary: '#41576D'
 		}
