@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { contract, type TAccountInfo } from '$lib/web3';
 	import Button from './Button.svelte';
-	import notifications from '$lib/notifications';
-	import { Api } from '$lib/api';
+	import { notificationsStore } from '$lib/notifications';
 
 	interface IMintNft {
 		account: TAccountInfo;
@@ -25,36 +24,17 @@
 
 	async function onMint() {
 		try {
-			if (file) {
-				const formData = new FormData();
-				formData.append('file', file);
-				formData.append('name', nftName);
-				formData.append('owner', account.address);
+			const txHash = await contract.methods.mintCommonNft(nftName).send({
+				from: account.address,
+				gas: '6721965'
+			});
 
-				const opts = {
-					method: 'POST',
-					route: 'api/nft/save',
-					body: formData
-				};
+			notificationsStore.add('success', 'NFT minted', `Tx hash ${txHash.transactionHash}`);
 
-				const data = await Api.fetchApi(opts);
-
-				if (data) {
-					await Api.createEvent(account.address, 'Mint common nft');
-
-					const txHash = await contract.methods.mintCommonNft(nftName, data.hash).send({
-						from: account.address,
-						gas: '6721965'
-					});
-
-					notifications.add('success', 'NFT minted', `Tx hash ${txHash.transactionHash}`);
-
-					refreshNfts();
-				}
-			}
+			refreshNfts();
 		} catch (err) {
 			console.error(err);
-			notifications.add('error', 'NFT minted error', `${err}`);
+			notificationsStore.add('error', 'NFT minted error', `${err}`);
 		} finally {
 			nftName = '';
 			selectedImage = null;
@@ -85,5 +65,5 @@
 		class="border-gray-300 rounded-lg border p-2"
 		bind:value={nftName}
 	/>
-	<Button disabled={nftName === '' && selectedImage === null} onclick={onMint}>Mint NFT</Button>
+	<Button disabled={nftName === ''} onclick={onMint}>Mint NFT</Button>
 </div>
